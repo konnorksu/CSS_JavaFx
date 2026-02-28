@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="cardRoot"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.css_javafx.controller.AnimeCardController"
+           prefWidth="210" prefHeight="310"
+           maxWidth="210" maxHeight="310"
+           styleClass="card">
+
+    <ImageView fx:id="poster"
+               fitWidth="210" fitHeight="310"
+               preserveRatio="false"
+               styleClass="card-poster"/>
+
+    <VBox alignment="BOTTOM_LEFT" spacing="6" styleClass="card-footer">
+        <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+        <Label fx:id="title" wrapText="true" styleClass="card-title"/>
+    </VBox>
+</StackPane>

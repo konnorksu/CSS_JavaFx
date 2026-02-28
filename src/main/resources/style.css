@@ -1,0 +1,111 @@
+.app-root {
+    -fx-background-color: #0f1220;
+    -fx-font-family: "Segoe UI", "Inter", Arial;
+}
+
+/* topbar */
+.topbar {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-width: 0 0 1 0;
+}
+.brand {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+}
+.search {
+    -fx-background-radius: 12;
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255,255,255,0.35);
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-radius: 12;
+    -fx-padding: 10 12 10 12;
+}
+
+/* sidebar */
+.sidebar {
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-width: 0 1 0 0;
+}
+.sidebar-title {
+    -fx-text-fill: rgba(255,255,255,0.7);
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 10 0;
+}
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.75);
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 12;
+}
+.nav-btn:hover { -fx-background-color: rgba(255,255,255,0.06); }
+.nav-btn-active {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-text-fill: white;
+}
+.sep { -fx-opacity: 0.35; }
+
+/* center */
+.section-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+}
+.status { -fx-text-fill: rgba(255,255,255,0.65); }
+.scroll { -fx-background: transparent; -fx-background-color: transparent; }
+.scroll .viewport { -fx-background-color: transparent; }
+
+/* card */
+.card {
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0.2, 0, 10);
+}
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 26, 0.25, 0, 14);
+}
+.card-footer {
+    -fx-background-color: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.0));
+    -fx-background-radius: 18;
+}
+.card-title {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+}
+.card-hint {
+    -fx-text-fill: rgba(255,255,255,0.8);
+    -fx-font-size: 16px;
+}
+
+/* details */
+.details-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+}
+.details-desc {
+    -fx-control-inner-background: rgba(0, 0, 0, 0.55);
+    -fx-text-fill: rgb(255, 255, 255);
+    /*-fx-highlight-fill: rgba(0, 0, 0, 0.55);*/
+    /*-fx-highlight-text-fill: white;*/
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: rgba(0, 0, 0, 0.55);
+}
+.btn {
+    -fx-background-radius: 12;
+    -fx-padding: 10 14 10 14;
+    -fx-font-weight: 800;
+}
+.btn-primary { -fx-background-color: #6c5ce7; -fx-text-fill: white; }
+.btn-ghost { -fx-background-color: rgba(255,255,255,0.06); -fx-text-fill: white; }
+
+.empty-title { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 900; }
+.empty-desc { -fx-text-fill: rgba(255,255,255,0.65); }
+
+.loading { -fx-progress-color: #6c5ce7; }

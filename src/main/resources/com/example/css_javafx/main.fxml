@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.lang.String?>
+<BorderPane fx:id="root"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.css_javafx.controller.MainController"
+            styleClass="app-root">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="topbar" BorderPane.alignment="CENTER">
+            <padding><Insets top="14" right="16" bottom="14" left="16"/></padding>
+
+            <Label text="Anime Catalog" styleClass="brand"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="searchField"
+                       promptText="Search anime..."
+                       prefWidth="420"
+                       styleClass="search"
+                       onAction="#onSearch"/>
+
+            <Button text="Search" onAction="#onSearch">
+                <styleClass>
+                    <String fx:value="btn"/>
+                    <String fx:value="btn-primary"/>
+                </styleClass>
+            </Button>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="10" styleClass="sidebar" prefWidth="240" BorderPane.alignment="CENTER">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <Label text="Menu" styleClass="sidebar-title"/>
+            <Button text="Catalog">
+                <styleClass>
+                    <String fx:value="nav-btn"/>
+                    <String fx:value="nav-btn-active"/>
+                </styleClass>
+            </Button>
+            <Button text="Favorites" styleClass="nav-btn"/>
+            <Button text="Settings" styleClass="nav-btn"/>
+            <Separator styleClass="sep"/>
+        </VBox>
+    </left>
+
+    <center>
+        <!-- Каталог: header + stack(scroll + loading) -->
+        <VBox spacing="12" styleClass="center" BorderPane.alignment="CENTER">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Recommendation" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="statusText" text=" " styleClass="status"/>
+            </HBox>
+
+            <StackPane>
+                <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll">
+                    <content>
+                        <FlowPane fx:id="cards" styleClass="cards" hgap="14" vgap="14" prefWrapLength="860"/>
+                    </content>
+                </ScrollPane>
+
+                <ProgressIndicator fx:id="loading" visible="false" styleClass="loading"/>
+            </StackPane>
+        </VBox>
+    </center>
+
+</BorderPane>

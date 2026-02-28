@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      alignment="CENTER" spacing="8"
+      styleClass="empty">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+    <Label text="Nothing found" styleClass="empty-title"/>
+    <Label text="Try another query or refresh the list." styleClass="empty-desc"/>
+</VBox>
