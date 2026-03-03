@@ -27,12 +27,10 @@ public class MainController {
 
     private HostServices hostServices;
 
-    // нужен чтобы контроллер деталей мог открыть ссылку
     public void setHostServices(HostServices hostServices) {
         this.hostServices = hostServices;
     }
 
-    // сохраняем исходный каталог-центр, чтобы потом вернуться из Details
     private Parent catalogCenterSnapshot;
 
     @FXML
@@ -44,7 +42,6 @@ public class MainController {
 
     @FXML
     private void onSearch() {
-        // как и раньше: пока просто перезагрузка
         loadAnime();
     }
 
@@ -122,7 +119,9 @@ public class MainController {
 
             DetailsController controller = loader.getController();
 
-            controller.setAnime(anime, null, hostServices, this::goBackToCatalog);
+            String trailerUrl = anime.getTrailerUrl(); // только watch
+
+            controller.setAnime(anime, trailerUrl, hostServices, this::goBackToCatalog);
 
             root.setCenter(detailsNode);
         } catch (IOException e) {

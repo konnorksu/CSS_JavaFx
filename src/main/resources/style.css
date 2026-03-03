@@ -57,8 +57,19 @@
     -fx-font-weight: 800;
 }
 .status { -fx-text-fill: rgba(255,255,255,0.65); }
-.scroll { -fx-background: transparent; -fx-background-color: transparent; }
-.scroll .viewport { -fx-background-color: transparent; }
+
+.scroll.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
 
 /* card */
 .card {
@@ -89,11 +100,10 @@
     -fx-font-weight: 900;
 }
 .details-desc {
-    -fx-control-inner-background: rgba(0, 0, 0, 0.55);
-    -fx-text-fill: rgb(255, 255, 255);
-    /*-fx-highlight-fill: rgba(0, 0, 0, 0.55);*/
-    /*-fx-highlight-text-fill: white;*/
+    -fx-text-fill: white;
+    /*-fx-background-color: rgba(0, 0, 0, 0.55);*/
     -fx-background-radius: 14;
+    -fx-padding: 14;
     -fx-border-radius: 14;
     -fx-border-color: rgba(0, 0, 0, 0.55);
 }
@@ -109,3 +119,34 @@
 .empty-desc { -fx-text-fill: rgba(255,255,255,0.65); }
 
 .loading { -fx-progress-color: #6c5ce7; }
+
+/* stats */
+.stat-card {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-background-radius: 14;
+    -fx-padding: 10 12 10 12;
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-radius: 14;
+}
+.stat-label {
+    -fx-text-fill: rgba(255,255,255,0.65);
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+}
+.stat-value {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+
+/* chips */
+.chip {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-border-radius: 999;
+    -fx-padding: 6 10 6 10;
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}

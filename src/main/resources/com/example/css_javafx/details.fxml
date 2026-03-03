@@ -5,31 +5,79 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.media.MediaView?>
+<?import java.lang.String?>
 <ScrollPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.css_javafx.controller.DetailsController"
-            fitToWidth="true" hbarPolicy="NEVER"
+            fx:id="detailsScroll"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
             styleClass="scroll">
 
     <content>
-        <VBox spacing="14" styleClass="details">
-            <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+        <VBox spacing="14" styleClass="center">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
 
-            <Button fx:id="backBtn" text="← Back" styleClass="btn btn-ghost"/>
+            <!-- top actions -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button fx:id="backBtn" text="← Back">
+                <styleClass>
+                    <String fx:value="btn"/>
+                    <String fx:value="btn-ghost"/>
+                </styleClass>
+                </Button>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="openBtn" text="Open MAL">
+                <styleClass>
+                    <String fx:value="btn"/>
+                    <String fx:value="btn-ghost"/>
+                </styleClass>
+                </Button>
+                <Button fx:id="openTrailerBtn" text="Open trailer" onAction="#onOpenTrailer">
+                <styleClass>
+                    <String fx:value="btn"/>
+                    <String fx:value="btn-primary"/>
+                </styleClass>
+                </Button>
+            </HBox>
 
-            <HBox spacing="16" alignment="TOP_LEFT">
-                <ImageView fx:id="image"
-                           fitWidth="260" fitHeight="360"
-                           preserveRatio="true"
-                           styleClass="details-image"/>
+            <!-- hero -->
+            <HBox spacing="16">
+                <ImageView fx:id="image" fitWidth="240" fitHeight="340" preserveRatio="true" styleClass="card"/>
 
                 <VBox spacing="10" HBox.hgrow="ALWAYS">
-                    <Label fx:id="title" wrapText="true" styleClass="details-title"/>
-                    <TextArea fx:id="desc" wrapText="true" editable="false" styleClass="details-desc"/>
-                    <Button fx:id="openBtn" text="Open page" styleClass="btn btn-primary"/>
+                    <Label fx:id="title" text="Title" styleClass="details-title"/>
+
+                    <!-- meta line -->
+                    <Label fx:id="metaLine" text="TV • 12 eps • 24 min • 2024 • PG-13" styleClass="status"/>
+
+                    <!-- score card -->
+                    <HBox spacing="12">
+                        <VBox styleClass="stat-card" spacing="2">
+                            <Label text="Score" styleClass="stat-label"/>
+                            <Label fx:id="scoreText" text="—" styleClass="stat-value"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" spacing="2">
+                            <Label text="Votes" styleClass="stat-label"/>
+                            <Label fx:id="votesText" text="—" styleClass="stat-value"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- chips -->
+                    <Label text="Genres" styleClass="sidebar-title"/>
+                    <FlowPane fx:id="genresPane" hgap="8" vgap="8"/>
+
+                    <Label text="Studios" styleClass="sidebar-title"/>
+                    <FlowPane fx:id="studiosPane" hgap="8" vgap="8"/>
                 </VBox>
             </HBox>
+
+            <Label text="Synopsis" styleClass="sidebar-title"/>
+            <Label fx:id="desc"
+                   wrapText="true"
+                   maxWidth="Infinity"
+                   styleClass="details-desc"/>
+
         </VBox>
     </content>
 </ScrollPane>
