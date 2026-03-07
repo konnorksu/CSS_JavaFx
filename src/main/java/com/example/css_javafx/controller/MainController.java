@@ -25,7 +25,13 @@ public class MainController {
     @FXML private FlowPane cards;
     @FXML private ProgressIndicator loading;
 
+    private int currentPage = 1;
+    private boolean isLoadingMore = false;
+    private boolean hasMore = true;
+    private String currentQuery = "";
+
     private HostServices hostServices;
+    private final java.util.Set<Integer> loadedAnimeIds = new java.util.HashSet<>();
 
     public void setHostServices(HostServices hostServices) {
         this.hostServices = hostServices;
@@ -37,24 +43,38 @@ public class MainController {
     private void initialize() {
         // запомним каталог при старте
         catalogCenterSnapshot = (Parent) root.getCenter();
+        scroll.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() >= 0.9) {
+                loadMoreIfNeeded();
+            }
+        });
         loadAnime();
     }
 
     @FXML
     private void onSearch() {
-        loadAnime();
+        String query = searchField.getText();
+
+        if (query == null || query.isBlank()) {
+            loadAnime();
+        } else {
+            searchAnime(query.trim());
+        }
     }
 
     private void loadAnime() {
         setLoading(true);
-        statusText.setText("Load...");
+        statusText.setText("Loading...");
+        currentPage = 1;
+        currentQuery = "";
+        hasMore = true;
 
         new Thread(() -> {
             try {
                 List<Anime> list = AnimeService.loadAnime();
                 Platform.runLater(() -> {
                     showCards(list);
-                    statusText.setText("Detected: " + (list == null ? 0 : list.size()));
+                    statusText.setText("Detected: " + list.size());
                     setLoading(false);
                 });
             } catch (Exception e) {
@@ -67,6 +87,66 @@ public class MainController {
         }, "anime-loader").start();
     }
 
+    private void loadMoreIfNeeded() {
+        if (isLoadingMore || !hasMore) return;
+
+        isLoadingMore = true;
+        currentPage++;
+
+        new Thread(() -> {
+            try {
+                List<Anime> nextPage;
+
+                if (currentQuery == null || currentQuery.isBlank()) {
+                    nextPage = AnimeService.loadAnimePage(currentPage, 24);
+                } else {
+                    nextPage = AnimeService.searchAnimePage(currentQuery, currentPage, 24);
+                }
+
+                Platform.runLater(() -> {
+                    if (nextPage == null || nextPage.isEmpty()) {
+                        hasMore = false;
+                    } else {
+                        appendCards(nextPage);
+                    }
+                    isLoadingMore = false;
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    System.out.println("Load more failed: " + e.getMessage());
+                    isLoadingMore = false;
+                });
+            }
+        }, "anime-load-more").start();
+    }
+
+    private void searchAnime(String query) {
+        setLoading(true);
+        statusText.setText("Searching...");
+        currentPage = 1;
+        currentQuery = query;
+        hasMore = true;
+
+        new Thread(() -> {
+            try {
+                List<Anime> list = AnimeService.searchAnime(query, 24);
+
+                Platform.runLater(() -> {
+                    showCards(list);
+                    statusText.setText("Found: " + list.size());
+                    setLoading(false);
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    statusText.setText("Error");
+                    setLoading(false);
+                    showError(e.getMessage());
+                });
+            }
+        }, "anime-search-loader").start();
+    }
+
     private void setLoading(boolean value) {
         loading.setVisible(value);
         scroll.setDisable(value);
@@ -75,6 +155,7 @@ public class MainController {
 
     private void showCards(List<Anime> list) {
         cards.getChildren().clear();
+        loadedAnimeIds.clear();
 
         if (list == null || list.isEmpty()) {
             cards.getChildren().add(makeEmptyState());
@@ -82,7 +163,19 @@ public class MainController {
         }
 
         for (Anime anime : list) {
-            cards.getChildren().add(makeCard(anime));
+            if (loadedAnimeIds.add(anime.getMalId())) {
+                cards.getChildren().add(makeCard(anime));
+            }
+        }
+    }
+
+    private void appendCards(List<Anime> list) {
+        if (list == null || list.isEmpty()) return;
+
+        for (Anime anime : list) {
+            if (loadedAnimeIds.add(anime.getMalId())) {
+                cards.getChildren().add(makeCard(anime));
+            }
         }
     }
 
