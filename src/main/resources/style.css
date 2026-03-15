@@ -58,6 +58,11 @@
 }
 .status { -fx-text-fill: rgba(255,255,255,0.65); }
 
+.scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
 .scroll.scroll-pane {
     -fx-background-color: transparent;
     -fx-background: transparent;
@@ -67,9 +72,42 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
 .scroll.scroll-pane > .corner {
     -fx-background-color: transparent;
 }
+
+/* Стилизация дорожки (track) */
+.scroll-pane .track {
+    -fx-background-color: rgba(36, 30, 74, 0.34);
+    -fx-background: rgba(36, 30, 74, 0.34);
+    -fx-text-fill: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.scroll-pane .increment-button {
+    -fx-background-color: rgba(36, 30, 74, 0.34);
+    -fx-background: rgba(36, 30, 74, 0.34);
+    -fx-text-fill: transparent;
+}
+
+/* Стилизация ползунка (thumb) */
+.scroll-pane .thumb {
+    -fx-background-color: rgb(107, 91, 229);
+    -fx-background-radius: 10;
+}
+
+/* Стилизация угловой области (corner), если есть оба скролла */
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
 
 /* card */
 .card {

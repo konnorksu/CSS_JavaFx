@@ -60,6 +60,27 @@ public class AnimeService {
         return result;
     }
 
+    private static boolean isExactTitleMatch(AnimeDto dto, String query) {
+        if (dto == null || query == null) return false;
+
+        String q = normalize(query);
+
+        if (normalize(dto.title).equals(q)) return true;
+        if (dto.title_english != null && normalize(dto.title_english).equals(q)) return true;
+        if (dto.title_japanese != null && normalize(dto.title_japanese).equals(q)) return true;
+
+        return false;
+    }
+
+    private static String normalize(String s) {
+        if (s == null) return "";
+        return s.trim()
+                .toLowerCase()
+                .replace("’", "'")
+                .replace("`", "'")
+                .replaceAll("\\s+", " ");
+    }
+
     public static List<Anime> searchAnime(String query, int limit) throws Exception {
         if (query == null || query.isBlank()) {
             return loadNewAnime(limit);
@@ -75,8 +96,21 @@ public class AnimeService {
             return List.of();
         }
 
-        return response.data.stream()
+        List<AnimeDto> filtered = response.data.stream()
                 .filter(dto -> !isHentai(dto))
+                .toList();
+
+        List<AnimeDto> exactMatches = filtered.stream()
+                .filter(dto -> isExactTitleMatch(dto, query))
+                .toList();
+
+        if (!exactMatches.isEmpty()) {
+            return exactMatches.stream()
+                    .map(AnimeService::mapDtoToAnime)
+                    .toList();
+        }
+
+        return filtered.stream()
                 .map(AnimeService::mapDtoToAnime)
                 .toList();
     }
@@ -120,17 +154,35 @@ public class AnimeService {
         }
 
         return response.data.stream()
+                .filter(dto -> !isHentai(dto))
+                .limit(limit)
                 .map(AnimeService::mapDtoToAnime)
                 .toList();
     }
 
     private static boolean isHentai(AnimeDto dto) {
-        if (dto == null || dto.genres == null) return false;
 
-        return dto.genres.stream()
-                .map(g -> g.name)
-                .filter(name -> name != null && !name.isBlank())
-                .anyMatch(name -> name.equalsIgnoreCase("Hentai"));
+        if (dto.rating != null && dto.rating.contains("Hentai")) {
+            return true;
+        }
+
+        if (dto.genres != null) {
+            for (var g : dto.genres) {
+                if ("Hentai".equalsIgnoreCase(g.name)) {
+                    return true;
+                }
+            }
+        }
+
+        if (dto.explicit_genres != null) {
+            for (var g : dto.explicit_genres) {
+                if ("Hentai".equalsIgnoreCase(g.name)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static Anime mapDtoToAnime(AnimeDto dto) {

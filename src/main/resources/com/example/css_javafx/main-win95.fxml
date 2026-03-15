@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" styleClass="app-root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.css_javafx.controller.MainController">
+
+    <top>
+        <VBox spacing="0">
+            <HBox fx:id="windowBar" alignment="CENTER_LEFT" spacing="6" styleClass="window-bar">
+
+                <padding>
+                    <Insets bottom="4" left="8" right="4" top="4" />
+                </padding>
+
+                <Label fx:id="windowTitle" styleClass="window-title" text="Anime Catalog" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="minBtn" onAction="#onMinimizeWindow" styleClass="window-btn" prefWidth="34.0" text="_" />
+
+                <Button fx:id="maxBtn" onAction="#onMaximizeWindow" styleClass="window-btn" prefWidth="34.0" text="□" />
+
+                <Button fx:id="closeBtn" onAction="#onCloseWindow" prefWidth="34.0" text="X">
+                        <styleClass>
+                            <String fx:value="window-btn" />
+                            <String fx:value="window-btn-close" />
+                        </styleClass>
+                </Button>
+            </HBox>
+
+            <!-- твой обычный topbar -->
+            <HBox alignment="CENTER_LEFT" spacing="8" styleClass="topbar" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets bottom="6" left="8" right="8" top="6" />
+                </padding>
+
+                <Label styleClass="brand" text="Anime Catalog" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <TextField fx:id="searchField" onAction="#onSearch" prefWidth="260" promptText="Search anime..." styleClass="search" />
+
+                <Button onAction="#onSearch" text="Search">
+                    <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                    </styleClass>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox prefWidth="220" spacing="8" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="8" left="8" right="8" top="8" />
+            </padding>
+
+            <Label styleClass="sidebar-title" text="Menu" />
+
+            <Button text="Catalog">
+                <styleClass>
+                    <String fx:value="nav-btn" />
+                    <String fx:value="nav-btn-active" />
+                </styleClass>
+            </Button>
+
+            <Button text="Favorites">
+                <styleClass>
+                    <String fx:value="nav-btn" />
+                </styleClass>
+            </Button>
+
+            <Button onAction="#openSettings" text="Settings">
+                <styleClass>
+                    <String fx:value="nav-btn" />
+                </styleClass>
+            </Button>
+
+            <Separator styleClass="sep" />
+
+            <Label styleClass="sidebar-title" text="Theme" />
+
+            <ComboBox fx:id="themeComboBox" prefWidth="180">
+                <buttonCell>
+                    <ListCell />
+                </buttonCell>
+            </ComboBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="8" styleClass="center" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="8" left="8" right="8" top="8" />
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label styleClass="section-title" text="Catalog" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="statusText" styleClass="status" text=" " />
+            </HBox>
+
+            <StackPane>
+                <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll">
+                    <content>
+                        <FlowPane fx:id="cards" hgap="8" prefWrapLength="860" styleClass="cards" vgap="8" />
+                    </content>
+                </ScrollPane>
+
+                <ProgressIndicator fx:id="loading" styleClass="loading" visible="false" />
+            </StackPane>
+        </VBox>
+    </center>
+
+</BorderPane>

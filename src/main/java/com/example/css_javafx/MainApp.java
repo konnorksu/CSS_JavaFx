@@ -1,30 +1,39 @@
 package com.example.css_javafx;
 
+import com.example.css_javafx.controller.MainController;
+import com.example.css_javafx.theme.AppTheme;
+import com.example.css_javafx.theme.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainApp extends Application {
 
+    private static Scene mainScene;
+
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("main.fxml"));
-        Scene scene = new Scene(loader.load(), 1200, 760);
-        scene.getStylesheets().add(MainApp.class.getResource("/style.css").toExternalForm());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/css_javafx/main.fxml"));
+        Parent root = loader.load();
 
-        stage.setTitle("Anime Catalog FX");
-        stage.setScene(scene);
+        mainScene = new Scene(root, 1280, 800);
 
-        // HostServices отдаём контроллеру, чтобы он мог открывать ссылки
-        Object c = loader.getController();
-        if (c instanceof com.example.css_javafx.controller.MainController mc) {
-            mc.setHostServices(getHostServices());
-        }
+        MainController controller = loader.getController();
+        controller.setHostServices(getHostServices());
+        controller.setScene(mainScene);
+        controller.setStage(stage);   // важно
 
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Anime Catalog");
+        stage.setScene(mainScene);
         stage.show();
+    }
+
+    public static Scene getMainScene() {
+        return mainScene;
     }
 
     public static void main(String[] args) {

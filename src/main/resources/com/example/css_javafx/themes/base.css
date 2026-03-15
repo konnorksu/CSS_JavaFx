@@ -1,0 +1,173 @@
+.app-root {
+    -fx-font-family: "Segoe UI", "Inter", Arial;
+}
+
+/* ===== custom window title bar ===== */
+
+.window-bar {
+    -fx-padding: 4 6 4 8;
+}
+
+.window-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.window-btn {
+    -fx-min-width: 28;
+    -fx-pref-width: 28;
+    -fx-max-width: 28;
+    -fx-min-height: 24;
+    -fx-pref-height: 24;
+    -fx-max-height: 24;
+    -fx-padding: 0;
+    -fx-alignment: CENTER;
+}
+
+.window-btn-close {
+}
+
+/* topbar */
+.topbar {
+    -fx-border-width: 0 0 1 0;
+}
+.brand {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+}
+.search {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 10 12 10 12;
+}
+
+/* sidebar */
+.sidebar {
+    -fx-border-width: 0 1 0 0;
+}
+.sidebar-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 10 0;
+}
+.nav-btn {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12 10 12;
+    -fx-background-radius: 12;
+}
+.sep {
+    -fx-opacity: 0.35;
+}
+
+/* center */
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+}
+
+/* scroll */
+.scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.scroll.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+.scroll.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+.scroll-pane .thumb {
+    -fx-background-radius: 10;
+}
+
+/* card */
+.card {
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 18, 0.2, 0, 10);
+}
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 26, 0.25, 0, 14);
+}
+.card-footer {
+    /*-fx-background-radius: 18;*/
+}
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 800;
+}
+.card-hint {
+    -fx-font-size: 16px;
+}
+
+/* details */
+.details-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+}
+.details-desc {
+    -fx-background-radius: 14;
+    -fx-padding: 14;
+    -fx-border-radius: 14;
+}
+.btn {
+    -fx-background-radius: 12;
+    -fx-padding: 10 14 10 14;
+    -fx-font-weight: 800;
+}
+
+.empty-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+
+/* stats */
+.stat-card {
+    -fx-background-radius: 14;
+    -fx-padding: 10 12 10 12;
+    -fx-border-radius: 14;
+}
+.stat-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+}
+.stat-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+}
+
+/* chips */
+.chip {
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.combo-box {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 6 10 6 10;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-insets: 0;
+}
+
+.combo-box-popup .list-cell {
+    -fx-padding: 6 10 6 10;
+}

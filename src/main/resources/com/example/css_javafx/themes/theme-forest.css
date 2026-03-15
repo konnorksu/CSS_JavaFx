@@ -1,0 +1,210 @@
+.app-root {
+    -fx-background-image: url("/com/example/css_javafx/images/forest_bg.jpg");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-color: #0b1510;
+}
+
+/* ===== TOP BAR ===== */
+
+.topbar {
+    -fx-background-color: rgba(8, 18, 12, 0.55);
+    -fx-border-color: rgba(170, 220, 190, 0.18);
+    -fx-border-width: 0 0 1 0;
+}
+
+.brand,
+.section-title,
+.details-title,
+.empty-title,
+.stat-value,
+.card-title {
+    -fx-text-fill: #f4fff6;
+}
+
+.sidebar-title,
+.status,
+.empty-desc,
+.stat-label,
+.card-hint {
+    -fx-text-fill: rgba(244, 255, 246, 0.78);
+}
+
+.window-bar {
+    -fx-background-color: rgba(8, 18, 12, 0.78);
+    -fx-border-color: rgba(210,255,225,0.18);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 6 10 6 10;
+}
+
+.window-title {
+    -fx-text-fill: #f4fff6;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+}
+
+.button.window-btn {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-text-fill: #f4fff6;
+    -fx-border-color: rgba(210,255,225,0.18);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.button.window-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.18);
+}
+
+/* ===== SEARCH ===== */
+
+.search {
+    -fx-background-color: rgba(10, 22, 14, 0.55);
+    -fx-text-fill: #f4fff6;
+    -fx-prompt-text-fill: rgba(244, 255, 246, 0.45);
+    -fx-border-color: rgba(162, 214, 179, 0.24);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar {
+    -fx-background-color: rgba(7, 17, 11, 0.52);
+    -fx-border-color: rgba(162, 214, 179, 0.16);
+    -fx-border-width: 0 1 0 0;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(244, 255, 246, 0.82);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
+.nav-btn:hover {
+    -fx-background-color: rgba(84, 150, 101, 0.22);
+}
+
+.nav-btn-active {
+    -fx-background-color: rgba(94, 176, 117, 0.34);
+    -fx-text-fill: white;
+}
+
+/* ===== SCROLL ===== */
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .track,
+.scroll-pane .increment-button,
+.scroll-pane .decrement-button {
+    -fx-background-color: rgba(20, 40, 25, 0.35);
+}
+
+.scroll-pane .thumb {
+    -fx-background-color: rgba(102, 190, 125, 0.88);
+    -fx-background-radius: 8;
+}
+
+/* ===== CARDS ===== */
+
+.stat-card,
+.chip,
+.details-desc {
+    -fx-text-fill: #f4fff6;
+    -fx-background-color: rgba(6, 14, 9, 0.52);
+    -fx-border-color: rgba(160, 220, 180, 0.20);
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.30), 20, 0.20, 0, 6);
+}
+
+.card-footer {
+    -fx-background-color: rgba(5, 12, 8, 0.55);
+}
+
+.details-desc {
+    -fx-text-fill: #f4fff6;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn-primary {
+    -fx-background-color: #4f9b63;
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #5cab72;
+}
+
+.btn-ghost {
+    -fx-background-color: rgba(8, 18, 12, 0.42);
+    -fx-text-fill: #f4fff6;
+    -fx-border-color: rgba(162, 214, 179, 0.20);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+
+.btn-ghost:hover {
+    -fx-background-color: rgba(84, 150, 101, 0.18);
+}
+
+/* ===== LOADING ===== */
+
+.loading {
+    -fx-progress-color: #67b97d;
+}
+
+/* ===== CHIPS ===== */
+
+.chip {
+    -fx-text-fill: #f4fff6;
+}
+
+/* ===== COMBO BOX ===== */
+
+.combo-box {
+    -fx-background-color: rgba(10, 22, 14, 0.75);
+    -fx-border-color: rgba(128, 198, 148, 0.28);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #eaffee;
+    -fx-background-color: transparent;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: rgba(10, 22, 14, 0.96);
+    -fx-border-color: rgba(128, 198, 148, 0.28);
+}
+
+.combo-box-popup .list-cell {
+    -fx-text-fill: #eaffee;
+    -fx-background-color: rgba(10, 22, 14, 0.96);
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(79, 122, 88, 0.55);
+}
+
+.combo-box-popup .list-cell:selected {
+    -fx-background-color: #4f9b63;
+    -fx-text-fill: white;
+}
+
+#closeBtn {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-text-fill: #f4fff6;
+    -fx-border-color: rgba(210,255,225,0.18);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}

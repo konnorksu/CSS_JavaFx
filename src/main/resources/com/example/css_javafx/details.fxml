@@ -45,7 +45,7 @@
             <HBox spacing="16">
                 <ImageView fx:id="image" fitWidth="240" fitHeight="340" preserveRatio="true" styleClass="card"/>
 
-                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <VBox spacing="10" HBox.hgrow="ALWAYS" styleClass="VBoxDetails">
                     <Label fx:id="title" text="Title" styleClass="details-title"/>
 
                     <!-- meta line -->

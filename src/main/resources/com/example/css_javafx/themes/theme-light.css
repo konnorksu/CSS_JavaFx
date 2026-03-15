@@ -1,0 +1,120 @@
+.app-root {
+    -fx-background-color: #f3f5fa;
+}
+
+.topbar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dfe4ee;
+}
+.brand,
+.section-title,
+.details-title,
+.empty-title,
+.stat-value {
+    -fx-text-fill: #1f2535;
+}
+.search {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1f2535;
+    -fx-prompt-text-fill: #8a93a8;
+    -fx-border-color: #d6ddeb;
+}
+
+.sidebar {
+    -fx-background-color: #eef2f8;
+    -fx-border-color: #dfe4ee;
+}
+.sidebar-title,
+.status,
+.empty-desc,
+.stat-label {
+    -fx-text-fill: #6d758a;
+}
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4c556d;
+}
+.nav-btn:hover {
+    -fx-background-color: #dde5f2;
+}
+.nav-btn-active {
+    -fx-background-color: #d5def0;
+    -fx-text-fill: #1f2535;
+}
+
+.scroll-pane .track,
+.scroll-pane .increment-button {
+    -fx-background-color: #e3e8f2;
+}
+.scroll-pane .thumb {
+    -fx-background-color: #5c6ef8;
+}
+
+.card {
+    -fx-effect: dropshadow(gaussian, rgba(31,37,53,0.12), 14, 0.18, 0, 6);
+}
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(31,37,53,0.18), 20, 0.2, 0, 8);
+}
+.card-footer {
+    -fx-background-color: linear-gradient(to top, rgba(21,25,37,0.85), rgba(21,25,37,0.0));
+}
+.card-title {
+    -fx-text-fill: white;
+}
+.card-hint {
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+.details-desc {
+    -fx-text-fill: #1f2535;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d6ddeb;
+}
+
+.btn-primary {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+}
+.btn-ghost {
+    -fx-background-color: #e7ecf5;
+    -fx-text-fill: #1f2535;
+}
+
+.loading {
+    -fx-progress-color: #5865f2;
+}
+
+.stat-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d6ddeb;
+}
+.chip {
+    -fx-background-color: #eef2f8;
+    -fx-border-color: #d6ddeb;
+    -fx-text-fill: #344055;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #d6ddeb;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1f2535;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+    -fx-border-color: #d6ddeb;
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #1f2535;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: #eef2f8;
+}

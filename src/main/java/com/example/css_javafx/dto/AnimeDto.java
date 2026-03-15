@@ -4,6 +4,8 @@ import java.util.List;
 
 public class AnimeDto {
     public String title;
+    public String title_english;
+    public String title_japanese;
     public String synopsis;
     public String url;
     public int mal_id;
@@ -19,6 +21,7 @@ public class AnimeDto {
     public String season;
     public Integer year;
     public String rating;
+    public List<NameItem> explicit_genres;
 
     public Images images;
     public List<NameItem> genres;

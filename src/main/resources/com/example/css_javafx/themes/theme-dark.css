@@ -1,0 +1,140 @@
+.app-root {
+    -fx-background-color: #0f1220;
+}
+
+.window-bar {
+    -fx-background-color: #12162a;
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0 0 1 0;
+}
+
+.window-title {
+    -fx-text-fill: white;
+}
+
+.window-btn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.08);
+}
+
+.window-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+}
+
+.window-btn-close:hover {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.topbar {
+    -fx-background-color: rgba(255,255,255,0.04);
+    -fx-border-color: rgba(255,255,255,0.06);
+}
+.brand,
+.section-title,
+.details-title,
+.empty-title,
+.stat-value {
+    -fx-text-fill: white;
+}
+.search {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255,255,255,0.35);
+    -fx-border-color: rgba(255,255,255,0.10);
+}
+
+.sidebar {
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-border-color: rgba(255,255,255,0.06);
+}
+.sidebar-title,
+.status,
+.empty-desc,
+.stat-label {
+    -fx-text-fill: rgba(255,255,255,0.65);
+}
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255,255,255,0.75);
+}
+.nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+.nav-btn-active {
+    -fx-background-color: rgba(255,255,255,0.10);
+    -fx-text-fill: white;
+}
+
+.scroll-pane .track,
+.scroll-pane .increment-button {
+    -fx-background-color: rgba(36, 30, 74, 0.34);
+}
+.scroll-pane .thumb {
+    -fx-background-color: rgb(107, 91, 229);
+}
+
+.card-footer {
+    -fx-background-color: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.0));
+}
+.card-title {
+    -fx-text-fill: white;
+}
+.card-hint {
+    -fx-text-fill: rgba(255,255,255,0.8);
+}
+
+.details-desc {
+    -fx-text-fill: white;
+    -fx-border-color: rgba(0, 0, 0, 0.55);
+}
+
+.btn-primary {
+    -fx-background-color: #6c5ce7;
+    -fx-text-fill: white;
+}
+.btn-ghost {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: white;
+}
+
+.loading {
+    -fx-progress-color: #6c5ce7;
+}
+
+.stat-card {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-border-color: rgba(255,255,255,0.10);
+}
+.chip {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-border-color: rgba(255,255,255,0.10);
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+.combo-box {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-border-color: rgba(255,255,255,0.10);
+}
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #171a2e;
+    -fx-border-color: rgba(255,255,255,0.10);
+}
+
+.combo-box-popup .list-cell {
+    -fx-background-color: #171a2e;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}

@@ -1,75 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.lang.String?>
-<BorderPane fx:id="root"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.css_javafx.controller.MainController"
-            styleClass="app-root">
+<BorderPane fx:id="root" styleClass="app-root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.css_javafx.controller.MainController">
 
     <top>
-        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="topbar" BorderPane.alignment="CENTER">
-            <padding><Insets top="14" right="16" bottom="14" left="16"/></padding>
+        <VBox spacing="0">
+            <!-- кастомная шапка окна -->
+            <HBox fx:id="windowBar"
+                  alignment="CENTER_LEFT"
+                  spacing="6"
+                  styleClass="window-bar">
 
-            <Label text="Anime Catalog" styleClass="brand"/>
+                <padding>
+                    <Insets top="4" right="4" bottom="4" left="8"/>
+                </padding>
 
-            <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="windowTitle" text=" " styleClass="window-title"/>
 
-            <TextField fx:id="searchField"
-                       promptText="Search anime..."
-                       prefWidth="420"
-                       styleClass="search"
-                       onAction="#onSearch"/>
+                <Region HBox.hgrow="ALWAYS"/>
 
-            <Button text="Search" onAction="#onSearch">
-                <styleClass>
-                    <String fx:value="btn"/>
-                    <String fx:value="btn-primary"/>
-                </styleClass>
-            </Button>
-        </HBox>
+                <Button fx:id="minBtn" text="—" onAction="#onMinimizeWindow" styleClass="window-btn"/>
+                <Button fx:id="maxBtn" text="□" onAction="#onMaximizeWindow" styleClass="window-btn"/>
+                <Button fx:id="closeBtn" text="X" onAction="#onCloseWindow" styleClass="window-btn window-btn-close"/>
+            </HBox>
+
+            <!-- твой обычный topbar -->
+            <HBox spacing="8" alignment="CENTER_LEFT" styleClass="topbar" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="6" right="8" bottom="6" left="8"/>
+                </padding>
+
+                <Label text="Anime Catalog" styleClass="brand"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <TextField fx:id="searchField"
+                           promptText="Search anime..."
+                           prefWidth="260"
+                           styleClass="search"
+                           onAction="#onSearch"/>
+
+                <Button text="Search" onAction="#onSearch">
+                    <styleClass>
+                        <String fx:value="btn"/>
+                        <String fx:value="btn-primary"/>
+                    </styleClass>
+                </Button>
+            </HBox>
+        </VBox>
     </top>
 
     <left>
-        <VBox spacing="10" styleClass="sidebar" prefWidth="240" BorderPane.alignment="CENTER">
-            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+        <VBox prefWidth="240" spacing="10" styleClass="sidebar" BorderPane.alignment="CENTER">
+            <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
 
-            <Label text="Menu" styleClass="sidebar-title"/>
+            <Label styleClass="sidebar-title" text="Menu" />
             <Button text="Catalog">
                 <styleClass>
-                    <String fx:value="nav-btn"/>
-                    <String fx:value="nav-btn-active"/>
+                    <String fx:value="nav-btn" />
+                    <String fx:value="nav-btn-active" />
                 </styleClass>
             </Button>
-            <Button text="Favorites" styleClass="nav-btn"/>
-            <Button text="Settings" styleClass="nav-btn"/>
-            <Separator styleClass="sep"/>
+            <Button styleClass="nav-btn" text="Favorites" />
+            <Button styleClass="nav-btn" text="Settings" />
+            <Separator styleClass="sep" />
+            <Label text="Theme" styleClass="sidebar-title"/>
+            <ComboBox fx:id="themeComboBox" prefWidth="180">
+            <styleClass>
+                <String fx:value="combo-box-popup" />
+<!--                <String fx:value="btn-primary" />-->
+            </styleClass>
+            </ComboBox>
         </VBox>
     </left>
 
     <center>
         <!-- Каталог: header + stack(scroll + loading) -->
         <VBox spacing="12" styleClass="center" BorderPane.alignment="CENTER">
-            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+            <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
 
             <HBox alignment="CENTER_LEFT">
-                <Label text="Recommendation" styleClass="section-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="statusText" text=" " styleClass="status"/>
+                <Label styleClass="section-title" text="Recommendation" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="statusText" styleClass="status" text=" " />
             </HBox>
 
             <StackPane>
                 <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll">
                     <content>
-                        <FlowPane fx:id="cards" styleClass="cards" hgap="14" vgap="14" prefWrapLength="860"/>
+                        <FlowPane fx:id="cards" hgap="14" prefWrapLength="860" styleClass="cards" vgap="14" />
                     </content>
                 </ScrollPane>
 
-                <ProgressIndicator fx:id="loading" visible="false" styleClass="loading"/>
+                <ProgressIndicator fx:id="loading" styleClass="loading" visible="false" />
             </StackPane>
         </VBox>
     </center>

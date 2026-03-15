@@ -10,6 +10,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import com.example.css_javafx.theme.AppTheme;
+import com.example.css_javafx.theme.ThemeManager;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +30,19 @@ public class MainController {
     @FXML private ScrollPane scroll;
     @FXML private FlowPane cards;
     @FXML private ProgressIndicator loading;
+    @FXML private ComboBox<AppTheme> themeComboBox;
+    @FXML private HBox windowBar;
+    @FXML private Button minBtn;
+    @FXML private Button maxBtn;
+    @FXML private Button closeBtn;
+    @FXML private Label windowTitle;
+
+    private Stage stage;
+
+    private double dragOffsetX;
+    private double dragOffsetY;
+
+    private Scene scene;
 
     private int currentPage = 1;
     private boolean isLoadingMore = false;
@@ -39,16 +58,97 @@ public class MainController {
 
     private Parent catalogCenterSnapshot;
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        setupWindowControls();
+    }
+
+    private void setupWindowControls() {
+        if (stage == null || windowBar == null) return;
+
+        windowBar.setOnMousePressed(event -> {
+            dragOffsetX = event.getSceneX();
+            dragOffsetY = event.getSceneY();
+        });
+
+        windowBar.setOnMouseDragged(event -> {
+            if (stage.isMaximized()) return;
+
+            stage.setX(event.getScreenX() - dragOffsetX);
+            stage.setY(event.getScreenY() - dragOffsetY);
+        });
+
+        // двойной клик по шапке = maximize/restore
+        windowBar.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                toggleMaximize();
+            }
+        });
+    }
+
+    @FXML
+    private void onMinimizeWindow() {
+        if (stage != null) {
+            stage.setIconified(true);
+        }
+    }
+
+    @FXML
+    private void onMaximizeWindow() {
+        toggleMaximize();
+    }
+
+    @FXML
+    private void onCloseWindow() {
+        if (stage != null) {
+            stage.close();
+        }
+    }
+
+    private void toggleMaximize() {
+        if (stage != null) {
+            stage.setMaximized(!stage.isMaximized());
+        }
+    }
+
     @FXML
     private void initialize() {
         // запомним каталог при старте
         catalogCenterSnapshot = (Parent) root.getCenter();
+        setupThemeSwitcher();
+
+        if (stage != null) {
+            setupWindowControls();
+        }
+
         scroll.vvalueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() >= 0.9) {
                 loadMoreIfNeeded();
             }
         });
+        System.out.println("closeBtn classes = " + closeBtn.getStyleClass());
         loadAnime();
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    private void setupThemeSwitcher() {
+        if (themeComboBox == null) return;
+
+        themeComboBox.getItems().setAll(AppTheme.values());
+
+        AppTheme savedTheme = ThemeManager.loadSavedTheme();
+        themeComboBox.setValue(savedTheme);
+
+        themeComboBox.setOnAction(e -> {
+            AppTheme selected = themeComboBox.getValue();
+            if (selected == null || scene == null) return;
+
+            ThemeManager.applyTheme(scene, selected);
+            ThemeManager.saveTheme(selected);
+        });
     }
 
     @FXML
