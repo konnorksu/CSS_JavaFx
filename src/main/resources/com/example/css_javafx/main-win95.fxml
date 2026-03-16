@@ -61,20 +61,20 @@
 
             <Label styleClass="sidebar-title" text="Menu" />
 
-            <Button text="Catalog">
+            <Button text="Catalog" onAction="#onOpenCatalog">
                 <styleClass>
                     <String fx:value="nav-btn" />
                     <String fx:value="nav-btn-active" />
                 </styleClass>
             </Button>
 
-            <Button text="Favorites">
-                <styleClass>
-                    <String fx:value="nav-btn" />
-                </styleClass>
-            </Button>
+<!--            <Button text="Favorites">-->
+<!--                <styleClass>-->
+<!--                    <String fx:value="nav-btn" />-->
+<!--                </styleClass>-->
+<!--            </Button>-->
 
-            <Button onAction="#openSettings" text="Settings">
+            <Button fx:id = "settingsBtn" text="Custom Theme" onAction="#onOpenSettings">
                 <styleClass>
                     <String fx:value="nav-btn" />
                 </styleClass>

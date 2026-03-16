@@ -25,7 +25,12 @@
 
                 <Button fx:id="minBtn" text="—" onAction="#onMinimizeWindow" styleClass="window-btn"/>
                 <Button fx:id="maxBtn" text="□" onAction="#onMaximizeWindow" styleClass="window-btn"/>
-                <Button fx:id="closeBtn" text="X" onAction="#onCloseWindow" styleClass="window-btn window-btn-close"/>
+                <Button fx:id="closeBtn" text="X" onAction="#onCloseWindow">
+                    <styleClass>
+                        <String fx:value ="window-btn" />
+                        <String fx:value = "window-btn-close"/>
+                    </styleClass>
+                </Button>
             </HBox>
 
             <!-- твой обычный topbar -->
@@ -59,14 +64,14 @@
             <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
 
             <Label styleClass="sidebar-title" text="Menu" />
-            <Button text="Catalog">
+            <Button text="Catalog" onAction="#onOpenCatalog">
                 <styleClass>
                     <String fx:value="nav-btn" />
                     <String fx:value="nav-btn-active" />
                 </styleClass>
-            </Button>
-            <Button styleClass="nav-btn" text="Favorites" />
-            <Button styleClass="nav-btn" text="Settings" />
+            </Button >
+<!--            <Button styleClass="nav-btn" text="Favorites" />-->
+            <Button fx:id = "settingsBtn" styleClass="nav-btn" text="Custom Theme" onAction="#onOpenSettings"/>
             <Separator styleClass="sep" />
             <Label text="Theme" styleClass="sidebar-title"/>
             <ComboBox fx:id="themeComboBox" prefWidth="180">

@@ -29,6 +29,7 @@ public class MainApp extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Anime Catalog");
         stage.setScene(mainScene);
+        stage.setMaximized(true);
         stage.show();
     }
 

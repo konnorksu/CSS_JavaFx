@@ -7,7 +7,8 @@ public enum AppTheme {
     FOREST("Forest", "/com/example/css_javafx/themes/theme-forest.css"),
     COW("Cow", "/com/example/css_javafx/themes/theme-cow.css"),
     OCEAN("Ocean", "/com/example/css_javafx/themes/theme-ocean.css"),
-    WIN95("Windows 95", "/com/example/css_javafx/themes/theme-win95.css");
+    WIN95("Windows 95", "/com/example/css_javafx/themes/theme-win95.css"),
+    CUSTOM("Custom", "");
 
     private final String displayName;
     private final String cssPath;

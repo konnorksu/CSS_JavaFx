@@ -91,6 +91,20 @@
     -fx-background-radius: 10;
 }
 
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
 /* card */
 .card {
     -fx-background-radius: 18;

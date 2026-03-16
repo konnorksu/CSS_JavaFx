@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import java.lang.String?>
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.css_javafx.controller.SettingsController"
+      prefWidth="1200.0"
+      prefHeight="600.0"
+      minWidth="1200.0"
+      minHeight="600.0"
+      styleClass="app-root">
+
+    <HBox fx:id="windowBar"
+          alignment="CENTER_LEFT"
+          spacing="8.0"
+          styleClass="window-bar">
+        <padding>
+            <Insets top="6.0" right="8.0" bottom="6.0" left="8.0"/>
+        </padding>
+
+        <Label text="Theme settings" styleClass="window-title"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button fx:id="dialogMinBtn"
+                text="—"
+                onAction="#onMinimize"
+                styleClass="window-btn"/>
+
+        <Button fx:id="dialogCloseBtn"
+                text="✕"
+                onAction="#onClose">
+                <styleClass>
+                    <String fx:value ="window-btn" />
+                    <String fx:value = "window-btn-close"/>
+                </styleClass>
+        </Button>
+    </HBox>
+
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                VBox.vgrow="ALWAYS">
+
+        <content>
+            <VBox spacing="16.0" fillWidth="true">
+                <padding>
+                    <Insets top="18.0" right="18.0" bottom="18.0" left="18.0"/>
+                </padding>
+
+                <Label text="Create custom theme" styleClass="section-title"/>
+
+                <Label text="Preview applies colors temporarily. Save stores them as the Custom theme."
+                       wrapText="true"
+                       styleClass="status"/>
+
+                <GridPane hgap="12.0"
+                          vgap="12.0"
+                          maxWidth="1.7976931348623157E308">
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="55.0"/>
+                        <ColumnConstraints percentWidth="45.0"/>
+                    </columnConstraints>
+
+                    <Label text="Background"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="bgColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="0"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Window bar"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="windowBarColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="1"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Top bar"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="2"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="topbarColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="2"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Sidebar"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="3"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="sidebarColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="3"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Surface"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="4"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="surfaceColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="4"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Accent"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="primaryColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="5"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Text"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="6"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="textColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="6"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Muted text"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="7"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="mutedTextColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="7"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Border"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="8"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="borderColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="8"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Hover"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="9"
+                           GridPane.columnIndex="0"/>
+                    <ColorPicker fx:id="hoverColorPicker"
+                                 prefWidth="180.0"
+                                 GridPane.rowIndex="9"
+                                 GridPane.columnIndex="1"/>
+
+                    <Label text="Background image"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="10"
+                           GridPane.columnIndex="0"/>
+                    <HBox spacing="8.0"
+                          alignment="CENTER_LEFT"
+                          GridPane.rowIndex="10"
+                          GridPane.columnIndex="1">
+                        <TextField fx:id="backgroundImageField"
+                                   editable="false"
+                                   prefWidth="320.0"/>
+                        <Button text="Browse"
+                                onAction="#onChooseBackgroundImage">
+                            <styleClass>
+                                <String fx:value ="btn" />
+                                <String fx:value = "btn-ghost"/>
+                            </styleClass>
+                        </Button>
+                        <Button text="Clear"
+                                onAction="#onClearBackgroundImage">
+                            <styleClass>
+                                <String fx:value ="btn" />
+                                <String fx:value = "btn-ghost"/>
+                            </styleClass>
+                        </Button>
+                    </HBox>
+
+                    <Label text="Font"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="11"
+                           GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="fontComboBox"
+                              prefWidth="240.0"
+                              GridPane.rowIndex="11"
+                              GridPane.columnIndex="1"/>
+
+                    <Label text="Font size"
+                           styleClass="sidebar-title"
+                           GridPane.rowIndex="12"
+                           GridPane.columnIndex="0"/>
+                    <Spinner fx:id="fontSizeSpinner"
+                             prefWidth="140.0"
+                             GridPane.rowIndex="12"
+                             GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <Label fx:id="dialogStatus"
+                       text="Custom theme editor"
+                       styleClass="status"/>
+
+                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                    <Button text="Preview"
+                            prefWidth="120.0"
+                            onAction="#onPreview">
+                        <styleClass>
+                            <String fx:value ="btn" />
+                            <String fx:value = "btn-ghost"/>
+                        </styleClass>
+                    </Button>
+
+                    <Button text="Save"
+                            prefWidth="120.0"
+                            onAction="#onSave">
+                        <styleClass>
+                            <String fx:value ="btn" />
+                            <String fx:value = "btn-primary"/>
+                        </styleClass>
+                    </Button>
+
+                    <Button text="Reset"
+                            prefWidth="120.0"
+                            onAction="#onReset">
+                        <styleClass>
+                            <String fx:value ="btn" />
+                            <String fx:value = "btn-ghost"/>
+                        </styleClass>
+                    </Button>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Button text="Cancel"
+                            prefWidth="120.0"
+                            onAction="#onCancel">
+                        <styleClass>
+                            <String fx:value ="btn" />
+                            <String fx:value = "btn-ghost"/>
+                        </styleClass>
+                    </Button>
+                </HBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>
