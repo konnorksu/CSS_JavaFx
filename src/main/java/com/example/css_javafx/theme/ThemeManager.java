@@ -81,7 +81,7 @@ public class ThemeManager {
             Path dir = Path.of(System.getProperty("user.home"), ".css_javafx");
             Files.createDirectories(dir);
 
-            Path cssFile = dir.resolve("user-theme-preview.css");
+            Path cssFile = dir.resolve("user-theme-preview-" + System.currentTimeMillis() + ".css");
             Files.writeString(
                     cssFile,
                     buildCustomCss(config),
@@ -461,7 +461,7 @@ public class ThemeManager {
     }
 
     private static String toVersionedUri(Path path) {
-        return path.toUri() + "?v=" + System.currentTimeMillis();
+        return path.toUri().toString();
     }
 
     private static String nullToEmpty(String value) {
