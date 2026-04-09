@@ -4,38 +4,31 @@ import com.example.css_javafx.theme.AppTheme;
 import com.example.css_javafx.theme.ThemeManager;
 import com.example.css_javafx.theme.UserThemeConfig;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Locale;
 
 public class SettingsController {
 
-    @FXML private HBox windowBar;
     @FXML private ColorPicker borderColorPicker;
     @FXML private ColorPicker hoverColorPicker;
 
     @FXML private TextField backgroundImageField;
     @FXML private ComboBox<String> fontComboBox;
     @FXML private Spinner<Integer> fontSizeSpinner;
-    private String selectedBackgroundImageUri = "";
 
-    @FXML private Button dialogMinBtn;
     @FXML private Button dialogCloseBtn;
 
     @FXML private ColorPicker bgColorPicker;
@@ -56,21 +49,20 @@ public class SettingsController {
 
     private AppTheme originalTheme;
     private boolean saved = false;
+    private Runnable onBack;
 
-    private double dragOffsetX;
-    private double dragOffsetY;
+    private String selectedBackgroundImageUri = "";
 
     @FXML
     private void initialize() {
-        windowBar.setOnMousePressed(this::handleWindowPressed);
-        windowBar.setOnMouseDragged(this::handleWindowDragged);
-
         if (fontComboBox != null) {
             fontComboBox.getItems().setAll(Font.getFamilies());
         }
 
         if (fontSizeSpinner != null) {
-            fontSizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 40, 14));
+            fontSizeSpinner.setValueFactory(
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(8, 40, 14)
+            );
             fontSizeSpinner.setEditable(true);
         }
     }
@@ -83,7 +75,29 @@ public class SettingsController {
         this.mainScene = mainScene;
         this.themeComboBox = themeComboBox;
         this.statusText = statusText;
+        this.onBack = () -> {
+            if (dialogStage != null) {
+                dialogStage.close();
+            }
+        };
 
+        initInternal();
+    }
+
+    public void initEmbedded(Scene mainScene,
+                             ComboBox<AppTheme> themeComboBox,
+                             Label statusText,
+                             Runnable onBack) {
+        this.dialogStage = null;
+        this.mainScene = mainScene;
+        this.themeComboBox = themeComboBox;
+        this.statusText = statusText;
+        this.onBack = onBack;
+
+        initInternal();
+    }
+
+    private void initInternal() {
         this.originalTheme = themeComboBox != null && themeComboBox.getValue() != null
                 ? themeComboBox.getValue()
                 : ThemeManager.loadSavedTheme();
@@ -91,15 +105,9 @@ public class SettingsController {
         UserThemeConfig currentConfig = ThemeManager.loadCustomTheme();
         fillForm(currentConfig);
 
-        if (dialogStage.getScene() != null) {
-            ThemeManager.applyTheme(dialogStage.getScene(), originalTheme);
+        if (dialogStatus != null) {
+            dialogStatus.setText("Custom theme editor");
         }
-
-        dialogStage.setOnCloseRequest(event -> {
-            if (!saved) {
-                restoreOriginalTheme();
-            }
-        });
     }
 
     private void fillForm(UserThemeConfig config) {
@@ -115,32 +123,31 @@ public class SettingsController {
         setColor(hoverColorPicker, config.getHoverColor());
 
         selectedBackgroundImageUri = config.getBackgroundImageUri() == null ? "" : config.getBackgroundImageUri();
-        backgroundImageField.setText(selectedBackgroundImageUri);
-
-        if (config.getFontFamily() != null && !config.getFontFamily().isBlank()) {
-            fontComboBox.setValue(config.getFontFamily());
-        } else {
-            fontComboBox.setValue("System");
+        if (backgroundImageField != null) {
+            backgroundImageField.setText(selectedBackgroundImageUri);
         }
 
-        fontSizeSpinner.getValueFactory().setValue(config.getFontSize());
+        if (fontComboBox != null) {
+            if (config.getFontFamily() != null && !config.getFontFamily().isBlank()) {
+                fontComboBox.setValue(config.getFontFamily());
+            } else {
+                fontComboBox.setValue("System");
+            }
+        }
+
+        if (fontSizeSpinner != null && fontSizeSpinner.getValueFactory() != null) {
+            fontSizeSpinner.getValueFactory().setValue(config.getFontSize());
+        }
     }
 
     @FXML
     private void onPreview() {
         UserThemeConfig previewConfig = buildUserThemeConfig();
-
-        System.out.println("Preview BG = " + previewConfig.getBackgroundColor());
-        System.out.println("Preview Sidebar = " + previewConfig.getSidebarColor());
-        System.out.println("Preview Accent = " + previewConfig.getPrimaryColor());
-
         ThemeManager.previewCustomTheme(mainScene, previewConfig);
 
-        if (dialogStage.getScene() != null) {
-            ThemeManager.previewCustomTheme(dialogStage.getScene(), previewConfig);
+        if (dialogStatus != null) {
+            dialogStatus.setText("Preview applied");
         }
-
-        dialogStatus.setText("Preview applied");
         if (statusText != null) {
             statusText.setText("Preview custom theme");
         }
@@ -152,11 +159,7 @@ public class SettingsController {
 
         ThemeManager.saveCustomTheme(config);
         ThemeManager.saveTheme(AppTheme.CUSTOM);
-
         ThemeManager.applyTheme(mainScene, AppTheme.CUSTOM);
-        if (dialogStage.getScene() != null) {
-            ThemeManager.applyTheme(dialogStage.getScene(), AppTheme.CUSTOM);
-        }
 
         if (themeComboBox != null) {
             themeComboBox.setValue(AppTheme.CUSTOM);
@@ -166,27 +169,33 @@ public class SettingsController {
             statusText.setText("Theme: Custom");
         }
 
-        dialogStatus.setText("Custom theme saved");
+        if (dialogStatus != null) {
+            dialogStatus.setText("Custom theme saved");
+        }
+
         saved = true;
-        dialogStage.close();
+
+        if (onBack != null) {
+            onBack.run();
+        }
     }
 
     @FXML
     private void onReset() {
         UserThemeConfig defaults = UserThemeConfig.defaultConfig();
         fillForm(defaults);
-        dialogStatus.setText("Default values restored");
+
+        if (dialogStatus != null) {
+            dialogStatus.setText("Default values restored");
+        }
     }
 
     @FXML
     private void onCancel() {
         restoreOriginalTheme();
-        dialogStage.close();
-    }
-
-    @FXML
-    private void onMinimize() {
-        dialogStage.setIconified(true);
+        if (onBack != null) {
+            onBack.run();
+        }
     }
 
     @FXML
@@ -194,14 +203,57 @@ public class SettingsController {
         if (!saved) {
             restoreOriginalTheme();
         }
-        dialogStage.close();
+        if (onBack != null) {
+            onBack.run();
+        }
+    }
+
+    @FXML
+    private void onChooseBackgroundImage() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose background image");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.webp")
+        );
+
+        Stage resolvedOwner = dialogStage;
+        if (resolvedOwner == null && mainScene != null && mainScene.getWindow() instanceof Stage s) {
+            resolvedOwner = s;
+        }
+
+        final Stage owner = resolvedOwner;
+        final boolean wasMaximized = owner != null && owner.isMaximized();
+        final boolean wasFullScreen = owner != null && owner.isFullScreen();
+
+        File file = chooser.showOpenDialog(owner);
+
+        if (owner != null) {
+            javafx.application.Platform.runLater(() -> {
+                if (wasFullScreen) {
+                    owner.setFullScreen(true);
+                } else if (wasMaximized) {
+                    owner.setMaximized(false);
+                    owner.setMaximized(true);
+                }
+            });
+        }
+
+        if (file != null) {
+            selectedBackgroundImageUri = file.toURI().toString();
+            backgroundImageField.setText(selectedBackgroundImageUri);
+            dialogStatus.setText("Background image selected");
+        }
+    }
+
+    @FXML
+    private void onClearBackgroundImage() {
+        selectedBackgroundImageUri = "";
+        backgroundImageField.setText("");
+        dialogStatus.setText("Background image cleared");
     }
 
     private void restoreOriginalTheme() {
         ThemeManager.applyTheme(mainScene, originalTheme);
-        if (dialogStage.getScene() != null) {
-            ThemeManager.applyTheme(dialogStage.getScene(), originalTheme);
-        }
 
         if (themeComboBox != null) {
             themeComboBox.setValue(originalTheme);
@@ -230,32 +282,30 @@ public class SettingsController {
         );
     }
 
-    @FXML
-    private void onChooseBackgroundImage() {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Choose background image");
-        chooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.webp")
-        );
+    private void setColor(ColorPicker picker, String cssColor) {
+        if (picker == null || cssColor == null || cssColor.isBlank()) return;
 
-        File file = chooser.showOpenDialog(dialogStage);
-        if (file != null) {
-            selectedBackgroundImageUri = file.toURI().toString();
-            backgroundImageField.setText(selectedBackgroundImageUri);
-            dialogStatus.setText("Background image selected");
+        try {
+            if (cssColor.startsWith("#")) {
+                picker.setValue(Color.web(cssColor));
+                return;
+            }
+
+            if (cssColor.startsWith("rgba")) {
+                String raw = cssColor
+                        .replace("rgba(", "")
+                        .replace(")", "");
+                String[] parts = raw.split(",");
+
+                int r = Integer.parseInt(parts[0].trim());
+                int g = Integer.parseInt(parts[1].trim());
+                int b = Integer.parseInt(parts[2].trim());
+                double a = Double.parseDouble(parts[3].trim());
+
+                picker.setValue(Color.rgb(r, g, b, a));
+            }
+        } catch (Exception ignored) {
         }
-    }
-
-    @FXML
-    private void onClearBackgroundImage() {
-        selectedBackgroundImageUri = "";
-        backgroundImageField.setText("");
-        dialogStatus.setText("Background image cleared");
-    }
-
-    private void setColor(ColorPicker picker, String hex) {
-        if (picker == null || hex == null || !hex.matches("#[0-9a-fA-F]{6}")) return;
-        picker.setValue(Color.web(hex));
     }
 
     private String toCssColor(Color color) {
@@ -269,15 +319,5 @@ public class SettingsController {
         double a = color.getOpacity();
 
         return String.format(Locale.US, "rgba(%d,%d,%d,%.3f)", r, g, b, a);
-    }
-
-    private void handleWindowPressed(MouseEvent event) {
-        dragOffsetX = event.getSceneX();
-        dragOffsetY = event.getSceneY();
-    }
-
-    private void handleWindowDragged(MouseEvent event) {
-        dialogStage.setX(event.getScreenX() - dragOffsetX);
-        dialogStage.setY(event.getScreenY() - dragOffsetY);
     }
 }

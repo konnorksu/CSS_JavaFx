@@ -308,6 +308,15 @@ public class ThemeManager {
                 "    -fx-text-fill: " + text + ";",
                 "}",
 
+                ".btn,",
+                ".btn-primary,",
+                ".btn-ghost {",
+                "    -fx-background-radius: 12;",
+                "    -fx-border-radius: 12;",
+                "    -fx-padding: 10 14 10 14;",
+                "    -fx-font-weight: 800;",
+                "}",
+
                 ".btn-primary {",
                 "    -fx-background-color: " + primary + ";",
                 "    -fx-text-fill: white;",

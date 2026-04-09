@@ -32,11 +32,13 @@ public class AnimeDto {
     public static class Images {
         public Jpg jpg;
     }
+
     public static class Jpg {
         public String image_url;
     }
 
     public static class NameItem {
+        public int mal_id;
         public String name;
     }
 

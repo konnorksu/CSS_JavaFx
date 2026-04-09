@@ -9,7 +9,6 @@
 
     <top>
         <VBox spacing="0">
-            <!-- кастомная шапка окна -->
             <HBox fx:id="windowBar"
                   alignment="CENTER_LEFT"
                   spacing="6"
@@ -33,7 +32,6 @@
                 </Button>
             </HBox>
 
-            <!-- твой обычный topbar -->
             <HBox spacing="8" alignment="CENTER_LEFT" styleClass="topbar" BorderPane.alignment="CENTER">
                 <padding>
                     <Insets top="6" right="8" bottom="6" left="8"/>
@@ -55,6 +53,13 @@
                         <String fx:value="btn-primary"/>
                     </styleClass>
                 </Button>
+
+                <Button text="Advanced Search" onAction="#onOpenAdvancedSearch">
+                    <styleClass>
+                        <String fx:value="btn"/>
+                        <String fx:value="btn-ghost"/>
+                    </styleClass>
+                </Button>
             </HBox>
         </VBox>
     </top>
@@ -69,22 +74,23 @@
                     <String fx:value="nav-btn" />
                     <String fx:value="nav-btn-active" />
                 </styleClass>
-            </Button >
-<!--            <Button styleClass="nav-btn" text="Favorites" />-->
-            <Button fx:id = "settingsBtn" styleClass="nav-btn" text="Custom Theme" onAction="#onOpenSettings"/>
+            </Button>
+
+            <Button fx:id="settingsBtn" styleClass="nav-btn" text="Custom Theme" onAction="#onOpenSettings"/>
+
             <Separator styleClass="sep" />
+
             <Label text="Theme" styleClass="sidebar-title"/>
+
             <ComboBox fx:id="themeComboBox" prefWidth="180">
-            <styleClass>
-                <String fx:value="combo-box-popup" />
-<!--                <String fx:value="btn-primary" />-->
-            </styleClass>
+                <styleClass>
+                    <String fx:value="combo-box-popup" />
+                </styleClass>
             </ComboBox>
         </VBox>
     </left>
 
     <center>
-        <!-- Каталог: header + stack(scroll + loading) -->
         <VBox spacing="12" styleClass="center" BorderPane.alignment="CENTER">
             <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
 

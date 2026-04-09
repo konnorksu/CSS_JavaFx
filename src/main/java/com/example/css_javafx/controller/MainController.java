@@ -4,38 +4,30 @@ import com.example.css_javafx.AnimeService;
 import com.example.css_javafx.model.Anime;
 import com.example.css_javafx.theme.AppTheme;
 import com.example.css_javafx.theme.ThemeManager;
-import com.example.css_javafx.theme.UserThemeConfig;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class MainController {
 
@@ -56,10 +48,8 @@ public class MainController {
     @FXML private Button settingsBtn;
 
     private Stage stage;
-
     private double dragOffsetX;
     private double dragOffsetY;
-
     private Scene scene;
 
     private int currentPage = 1;
@@ -68,9 +58,9 @@ public class MainController {
     private String currentQuery = "";
 
     private HostServices hostServices;
-    private final java.util.Set<Integer> loadedAnimeIds = new java.util.HashSet<>();
+    private final Set<Integer> loadedAnimeIds = new HashSet<>();
 
-    private Parent catalogCenterSnapshot;
+    private Node catalogCenterSnapshot;
 
     public void setHostServices(HostServices hostServices) {
         this.hostServices = hostServices;
@@ -93,7 +83,7 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        catalogCenterSnapshot = (Parent) root.getCenter();
+        catalogCenterSnapshot = root.getCenter();
         setupThemeSwitcher();
 
         if (stage != null) {
@@ -149,10 +139,6 @@ public class MainController {
 
     @FXML
     private void onOpenSettings() {
-        if (scene == null) {
-            return;
-        }
-
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/css_javafx/settings.fxml")
@@ -160,32 +146,9 @@ public class MainController {
 
             Parent settingsRoot = loader.load();
             SettingsController controller = loader.getController();
+            controller.initEmbedded(scene, themeComboBox, statusText, this::goBackToCatalog);
 
-            Scene dialogScene = new Scene(settingsRoot, 1000, 600);
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initStyle(StageStyle.UNDECORATED);
-
-            Stage ownerStage = stage;
-            if (ownerStage == null && scene.getWindow() instanceof Stage sceneStage) {
-                ownerStage = sceneStage;
-            }
-            if (ownerStage != null) {
-                dialogStage.initOwner(ownerStage);
-            }
-
-            dialogStage.setScene(dialogScene);
-            dialogStage.setWidth(1200);
-            dialogStage.setHeight(800);
-            dialogStage.setMinWidth(1200);
-            dialogStage.setMinHeight(800);
-            dialogStage.centerOnScreen();
-
-            controller.init(dialogStage, scene, themeComboBox, statusText);
-
-            dialogStage.showAndWait();
-
+            root.setCenter(settingsRoot);
         } catch (IOException e) {
             showError("Unable to open settings: " + e.getMessage());
         }
@@ -197,10 +160,11 @@ public class MainController {
             searchField.clear();
         }
 
-        if (catalogCenterSnapshot != null) {
-            root.setCenter(catalogCenterSnapshot);
-        }
+        currentQuery = "";
+        currentPage = 1;
+        hasMore = true;
 
+        goBackToCatalog();
         loadAnime();
 
         if (scroll != null) {
@@ -242,6 +206,27 @@ public class MainController {
         } else {
             searchAnime(query.trim());
         }
+    }
+
+    @FXML
+    private void onOpenAdvancedSearch() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/css_javafx/advanced_search.fxml")
+            );
+
+            Parent advancedSearchRoot = loader.load();
+            AdvancedSearchController controller = loader.getController();
+            controller.init(this);
+
+            root.setCenter(advancedSearchRoot);
+        } catch (IOException e) {
+            showError("Unable to open advanced search: " + e.getMessage());
+        }
+    }
+
+    public void goBackToCatalogFromChild() {
+        goBackToCatalog();
     }
 
     private void loadAnime() {
@@ -295,10 +280,7 @@ public class MainController {
                 });
 
             } catch (Exception e) {
-                Platform.runLater(() -> {
-                    System.out.println("Load more failed: " + e.getMessage());
-                    isLoadingMore = false;
-                });
+                Platform.runLater(() -> isLoadingMore = false);
             }
         }, "anime-load-more").start();
     }
@@ -315,6 +297,7 @@ public class MainController {
                 List<Anime> list = AnimeService.searchAnime(query, 24);
 
                 Platform.runLater(() -> {
+                    goBackToCatalog();
                     showCards(list);
                     statusText.setText("Found: " + list.size());
                     setLoading(false);
@@ -327,6 +310,61 @@ public class MainController {
                 });
             }
         }, "anime-search-loader").start();
+    }
+
+    public void searchAnimeAdvanced(String title,
+                                    String studio,
+                                    String type,
+                                    String season,
+                                    Integer year,
+                                    Double minScore,
+                                    List<String> genres) {
+        if (catalogCenterSnapshot != null) {
+            root.setCenter(catalogCenterSnapshot);
+        }
+
+        setLoading(true);
+        statusText.setText("Advanced searching...");
+        currentPage = 1;
+        currentQuery = "";
+        hasMore = false;
+
+        final List<String> selectedGenres = genres == null ? List.of() : genres.stream()
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .filter(s -> !s.isBlank())
+                .distinct()
+                .toList();
+
+        new Thread(() -> {
+            try {
+                List<Anime> result = AnimeService.searchAnimeAdvanced(
+                        title,
+                        studio,
+                        type,
+                        season,
+                        year,
+                        minScore,
+                        selectedGenres
+                );
+
+                Platform.runLater(() -> {
+                    showCards(result);
+                    statusText.setText("Found: " + result.size());
+                    setLoading(false);
+
+                    if (scroll != null) {
+                        scroll.setVvalue(0.0);
+                    }
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    statusText.setText("Error");
+                    setLoading(false);
+                    showError(e.getMessage());
+                });
+            }
+        }, "anime-advanced-search-loader").start();
     }
 
     private void setLoading(boolean value) {
@@ -403,7 +441,9 @@ public class MainController {
     }
 
     private void goBackToCatalog() {
-        root.setCenter(catalogCenterSnapshot);
+        if (catalogCenterSnapshot != null) {
+            root.setCenter(catalogCenterSnapshot);
+        }
     }
 
     private void showError(String message) {
