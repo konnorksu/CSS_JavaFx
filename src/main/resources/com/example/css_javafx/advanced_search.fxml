@@ -30,6 +30,7 @@
             <styleClass>
                 <String fx:value="center"/>
                 <String fx:value="advanced-search-page"/>
+                <String fx:value="VBoxDetails"/>
             </styleClass>
 
             <padding>

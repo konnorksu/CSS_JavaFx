@@ -23,14 +23,15 @@
     <ScrollPane fitToWidth="true"
                 hbarPolicy="NEVER"
                 vbarPolicy="AS_NEEDED"
-                VBox.vgrow="ALWAYS">
+                VBox.vgrow="ALWAYS"
+                styleClass="VBoxDetails">
         <content>
-            <VBox spacing="16.0" fillWidth="true" styleClass="center">
+            <VBox spacing="16.0" fillWidth="true" styleClass="center VBoxDetails">
                 <padding>
                     <Insets top="18.0" right="18.0" bottom="18.0" left="18.0"/>
                 </padding>
 
-                <HBox alignment="CENTER_LEFT" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="VBoxDetails">
                     <Label text="Theme settings" styleClass="section-title"/>
                     <Region HBox.hgrow="ALWAYS"/>
                     <Button fx:id="dialogCloseBtn" text="Back" onAction="#onClose">
@@ -49,7 +50,8 @@
 
                 <GridPane hgap="12.0"
                           vgap="12.0"
-                          maxWidth="1.7976931348623157E308">
+                          maxWidth="1.7976931348623157E308"
+                            styleClass="VBoxDetails">
 
                     <columnConstraints>
                         <ColumnConstraints percentWidth="55.0"/>
