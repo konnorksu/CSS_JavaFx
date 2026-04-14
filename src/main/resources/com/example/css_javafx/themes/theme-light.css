@@ -54,7 +54,7 @@
     -fx-effect: dropshadow(gaussian, rgba(31,37,53,0.12), 14, 0.18, 0, 6);
 }
 .card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(31,37,53,0.18), 20, 0.2, 0, 8);
+    -fx-effect: dropshadow(gaussian, rgba(31, 37, 53, 0.43), 20, 0.2, 0, 8);
 }
 .card-footer {
     -fx-background-color: linear-gradient(to top, rgba(21,25,37,0.85), rgba(21,25,37,0.0));

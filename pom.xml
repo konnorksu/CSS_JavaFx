@@ -91,7 +91,28 @@
                     <option>-Djcef.disable.gpu=true</option>
                     <option>-Djcef.force.windowed=true</option>
                 </options>
+
+
             </configuration>
+        </plugin>
+        <plugin>
+            <groupId>io.github.fvarrui</groupId>
+            <artifactId>javapackager</artifactId>
+            <version>1.7.6</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>package</goal>
+                    </goals>
+                    <configuration>
+                        <!--  mandatory  -->
+                        <mainClass>com.example.css_javafx.MainApp</mainClass>
+                        <bundleJre>true</bundleJre>
+                        <jrePath>C:\Program Files\Java\ZuluJDK-26</jrePath>
+                    </configuration>
+                </execution>
+            </executions>
         </plugin>
     </plugins>
   </build>

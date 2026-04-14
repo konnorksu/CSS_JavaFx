@@ -18,8 +18,6 @@
                     <Insets top="4" right="4" bottom="4" left="8"/>
                 </padding>
 
-                <Label fx:id="windowTitle" text=" " styleClass="window-title"/>
-
                 <Region HBox.hgrow="ALWAYS"/>
 
                 <Button fx:id="minBtn" text="—" onAction="#onMinimizeWindow" styleClass="window-btn"/>

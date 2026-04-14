@@ -50,6 +50,11 @@
     -fx-background-color: #4da7ff;
 }
 
+.card:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.18), 20, 0.25, 0, 0);
+}
+
 .card-footer {
     -fx-background-color: linear-gradient(to top, rgba(11,26,42,0.92), rgba(11,26,42,0.0));
 }

@@ -1,6 +1,7 @@
 package com.example.css_javafx.controller;
 
 import com.example.css_javafx.AnimeService;
+import com.example.css_javafx.MainApp;
 import com.example.css_javafx.model.Anime;
 import com.example.css_javafx.theme.AppTheme;
 import com.example.css_javafx.theme.ThemeManager;
@@ -78,7 +79,6 @@ public class MainController {
         if (themeComboBox != null) {
             themeComboBox.setValue(savedTheme);
         }
-        ThemeManager.applyTheme(scene, savedTheme);
     }
 
     @FXML
@@ -129,11 +129,9 @@ public class MainController {
 
         themeComboBox.setOnAction(e -> {
             AppTheme selected = themeComboBox.getValue();
-            if (selected == null || scene == null) return;
+            if (selected == null) return;
 
-            ThemeManager.applyTheme(scene, selected);
-            ThemeManager.saveTheme(selected);
-            statusText.setText("Theme: " + selected.getDisplayName());
+            MainApp.switchTheme(selected);
         });
     }
 
@@ -401,7 +399,11 @@ public class MainController {
 
     private Parent makeCard(Anime anime) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/css_javafx/anime_card.fxml"));
+            String fxmlPath = ThemeManager.loadSavedTheme() == AppTheme.FXML_DARK
+                    ? "/com/example/css_javafx/anime_card-dark-fxml.fxml"
+                    : "/com/example/css_javafx/anime_card.fxml";
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent node = loader.load();
 
             AnimeCardController controller = loader.getController();
@@ -411,14 +413,17 @@ public class MainController {
             return node;
         } catch (IOException e) {
             Label err = new Label("Card load error");
-            err.getStyleClass().add("card");
             return err;
         }
     }
 
     private Parent makeEmptyState() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/css_javafx/empty_state.fxml"));
+            String fxmlPath = ThemeManager.loadSavedTheme() == AppTheme.FXML_DARK
+                    ? "/com/example/css_javafx/empty_state-dark-fxml.fxml"
+                    : "/com/example/css_javafx/empty_state.fxml";
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             return loader.load();
         } catch (IOException e) {
             return new Label("No found");

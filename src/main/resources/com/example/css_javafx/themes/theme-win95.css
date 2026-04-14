@@ -207,6 +207,14 @@
     -fx-background-color: transparent;
 }
 
+.card:hover {
+    -fx-background-color: #d4d0c8;
+}
+
+.card:pressed {
+    -fx-border-color: #404040 white white #404040;
+}
+
 .card-footer {
     -fx-background-color: linear-gradient(to top, rgba(0,0,128,0.5), rgba(0,0,128,0.0));
 }

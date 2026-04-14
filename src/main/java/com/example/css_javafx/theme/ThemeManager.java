@@ -42,6 +42,11 @@ public class ThemeManager {
             return;
         }
 
+        if (theme.isFxmlTheme()) {
+            applyBaseOnly(scene);
+            return;
+        }
+
         scene.getStylesheets().clear();
 
         String basePath = theme == AppTheme.WIN95 ? BASE_WIN95_CSS : BASE_CSS;
@@ -57,6 +62,17 @@ public class ThemeManager {
             String themeCss = ThemeManager.class.getResource(theme.getCssPath()).toExternalForm();
             scene.getStylesheets().add(themeCss);
         }
+    }
+
+    public static void applyBaseOnly(Scene scene) {
+        if (scene == null) {
+            return;
+        }
+
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(
+                ThemeManager.class.getResource(BASE_CSS).toExternalForm()
+        );
     }
 
     public static void previewCustomTheme(Scene scene, UserThemeConfig config) {

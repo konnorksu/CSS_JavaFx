@@ -77,6 +77,22 @@
     -fx-background-color: rgb(107, 91, 229);
 }
 
+.card {
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 18, 0.2, 0, 10);
+    -fx-border-color: transparent;
+    -fx-border-width: 1.2;
+    -fx-border-radius: 16;
+}
+
+.card:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.18), 20, 0.25, 0, 0);
+}
+
+.card:focused {
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+
 .card-footer {
     -fx-background-color: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.0));
 }
@@ -136,5 +152,9 @@
 }
 
 .combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.08);
+}
+
+.combo-box-popup .list-cell:selected {
     -fx-background-color: rgba(255,255,255,0.08);
 }

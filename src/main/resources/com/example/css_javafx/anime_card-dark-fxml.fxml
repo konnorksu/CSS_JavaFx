@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="cardRoot"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.css_javafx.controller.AnimeCardController"
+           prefWidth="210" prefHeight="310"
+           maxWidth="210" maxHeight="310"
+           style="-fx-background-radius: 18; -fx-border-radius: 16; -fx-border-color: transparent; -fx-border-width: 1.2; -fx-effect: dropshadow(gaussian, rgb(0,0,0), 18, 0.2, 0, 10);">
+
+    <ImageView fx:id="poster"
+               fitWidth="210" fitHeight="310"
+               preserveRatio="false"/>
+
+    <VBox alignment="BOTTOM_LEFT"
+          spacing="6"
+          style="-fx-background-color: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.0));">
+        <padding>
+            <Insets top="12" right="12" bottom="12" left="12"/>
+        </padding>
+
+        <Label fx:id="title"
+               wrapText="true"
+               style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 800;"/>
+    </VBox>
+</StackPane>
